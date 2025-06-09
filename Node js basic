@@ -1,0 +1,109 @@
+------------------ NODE JS -----------------
+npm init
+
+node ./filename.js
+
+-------------------------------
+Server
+
+const http = require("http")   ---> This statement import http module which is inbuild module of node in http
+
+http.createServer()   ----> this method create server for us 	const myserver = http.createServer()
+			    this method contain on callbackfunction i.e requestlistner this container to argument i.e.
+			    (req,res)  res ---> response  | req---> request
+				
+			    const myserver = http.createServer((req,res)=>{ .... })	
+
+			    const myserver = http.createServer((req,res)=>{
+    				console.log("New Req is come ")
+   				res.end("Hello from sever")	
+				})
+
+			    const http = require("http")
+
+			const myserver = http.createServer((req ,res)=>{
+   				 console.log("New Req is come ")
+   				 // console.log(req);
+    				switch (req.url) {
+        				case "/":
+           					 res.end("Welcome to the homepage!");
+           					 break;
+        				case "/about":
+            					res.end("Hello, my name is Ashish.");
+            					break;
+        				default:
+           					 res.end("404 Not Found");
+    					}
+   				})
+
+			myserver.listen(8000,()=> console.log("Sever is started"))
+
+			req.url ---> return the url of req
+			res.end ---> return the data at end of response
+			res.method ---> return the type of request ex. i.e --> (get ,post ,patch)
+
+
+to evaluate urls
+	
+	npm i url
+	
+	const url = require("url") ---> access module url
+	
+			url.parse(req.url)  ---> convert url into object 	
+			
+				Url {
+				  protocol: null,
+				  slashes: null,
+				  auth: null,
+				  host: null,
+				  port: null,
+				  hostname: null,
+				  hash: null,
+				  search: '?name=ashish&id=12',
+				  query: 'name=ashish&id=12',
+				  pathname: '/kmds',
+				  path: '/kmds?name=ashish&id=12',
+				  href: '/kmds?name=ashish&id=12'
+				}
+			
+
+---------------------------------
+
+ fs --- module 
+	
+		used for file handling
+		
+		const fs= require("fs")  -----> this is how me can use fs module
+		
+		fs.writeFileSync("text.txt","this tis text");   -----> this how we can write on file
+		
+		
+			fs.writeFile("text.txt",data,(err)=>{ 
+				if(err){
+					console.log("error");
+				}
+				 else{
+					console.log("successfully done")
+				};
+			})
+		 
+		 -----> this is how we can write on file 
+		 
+		 fs.appendFile("text.txt","hello my self choota ashish",()=>{}) -----> this is how we can append on file
+
+			 fs.readFile("text.txt", "utf-8", (err, d) => {
+				if (err) {
+					console.error("Error reading the file:", err);
+				} else {
+					console.log("File content:", d);
+				}
+			}); 
+			
+		------> this is how we can read from file
+
+
+------------------------------------
+
+	http request
+	
+	
