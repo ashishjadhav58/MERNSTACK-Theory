@@ -1,0 +1,82 @@
+Props ---> 
+	Prop is an argument passed into react components
+
+	Send data as prop --> 
+
+		<Ex1 brand={"ford"}/>
+
+	receive prop and use in components--> 
+
+		function Ex1(prop){
+    			return(
+        			<div>
+            				<h1>{prop.brand}</h1>
+        			</div>
+    			);
+		}
+
+
+whole list --->
+
+	static way -->
+		function App() {
+  			let brand= ["ford","toyota","maruti"]
+  			return (
+ 			 <div>
+      				<Ex1 brand={brand[0]}/>
+     				<Ex1 brand={brand[1]}/>
+      				<Ex1 brand={brand[2]}/>
+        		</div>
+  			);
+			}
+			
+`	using map method -->
+
+			function App() {
+			  let brand= ["ford","toyota","maruti"]
+			  return (
+				<div className="App">
+				  <header className="App-header">
+				  {/* <Player/> */}
+				   {
+					  brand.map((e, index) => {
+						return <Example1 a={e} key={index} />;
+					  })
+					}
+				  <Example1 a={brand[0]}></Example1>
+				
+					</header>
+					</div>
+			  );
+			}
+		for array of object -->
+		
+			function App() {
+			  let brand= [
+				{name : "ashish" , run : 25},
+				{name : "Abhijeet", run : 150},
+				{name : "varad" , run : 0},
+			  ]
+			  return (
+				<div className="App">
+				  <header className="App-header">
+				  {/* <Player/> */}
+				   {
+					  brand.map((e, index) => {
+						return <Example1 name={e.name} run={e.run} />;
+					  })
+					}
+				  <Example1 a={brand[0]}></Example1>
+				
+					</header>
+					</div>
+			  );
+			}
+			
+					function Example1(prop){
+			return(
+				<>
+					<h1>{prop.name}{ " --->  "}{prop.run}{prop.run >=100 && " ----> i have just scored century " }</h1>
+				</>
+			)
+		}

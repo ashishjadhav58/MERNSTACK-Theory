@@ -1,0 +1,15 @@
+"State" of a component 
+
+	useState() ---> 
+	
+	  <button onClick={as} className={ prop.mark>12? " btn btn-danger":" btn btn-secondery "}>
+	  {cnt} Check profile</button>
+	  
+	  function as(e){
+			console.log(e);
+			setcnt(cnt+1);
+		}
+	  let [cnt,setcnt] = useState(0);
+	  
+	  Syntax --> let [variable , methodtochange] = useState(intial value);
+					methodetochange(variable + changeoperation)

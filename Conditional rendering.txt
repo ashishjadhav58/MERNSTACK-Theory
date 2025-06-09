@@ -1,0 +1,18 @@
+JSX Stands for JavaScript XML
+
+Conditional rendering
+
+	In tag --->  	<h1 className='Player-text'>
+               			 Hi My Name Is {data.name} {data.run>=100? "----I just scored a century" : " "}
+            		</h1>
+	
+	In Classname -->   <h1 className={"Player-text1 " + (data2.run>=100? "red " : "blue")} >
+               			 Hi My Name Is {data2.name} {data2.run>=100? "---- I just scored a century" : " "}
+
+           		   </h1>
+
+	For image -->  {data3.run>=100? <img src='logo192.png'/> : null}
+
+		Alternative --> {data3.run>=100 && <img src='logo192.png'/>}
+
+		Syntax --> {condition ? " If true statement" : " Else statement "} 

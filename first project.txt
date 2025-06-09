@@ -1,0 +1,40 @@
+npm start ---> to run file
+
+npx create-react-app reactfile  ---> to create react file //new way
+
+npm install -g create-react-app create-react-app reactfile  --> //traditional way
+
+npm install ---> for node module folder
+
+
+index.html ---> default file and works as prop in react or single page website 
+		only div#root is there in index file
+
+index.js ---> import data from ./app and render in root or document.getElementById("root") using 
+	ReactDOM.render(
+		<React.StrictMode>
+		<App/>
+		<React.StrictMode>,
+		document.getElementById("root")
+		);	 serviceWorker.unregister();
+
+App.js ---> A defult component in reactApp // If you Want then you can make your own
+
+	Ex --> 
+		import React from 'react';  // required to import every time
+		import './Player.css';       // external css file
+		function Player(){		// function Player where All the container in coded
+  			let name = 'Ashish jadhav'
+  		  	return(
+      			  <div className='Player'>
+            			<h1 className='Player-text'>
+                			Hi My Name Is {name }     // data
+            			</h1>
+        		  </div>
+    			);
+		}
+		export default Player;    // export file for other file to use
+	then add to index.js file
+
+
+note  --> In React rather than class like html there is className instead

@@ -1,0 +1,36 @@
+ADD WHOLE ARRAY OF OBJECT USING DIV AND CONATINER USING BOOT STRAP INTO REACT JS
+
+		function App() {
+		  let brand= [
+			{name : "Ashish" , roll : 1 , add:"Narhe" , contact : 9860054703 , mark : 28 },
+			{name : "Abhijeet", roll : 2 , add:"Dhayri" , contact : 9356605762 , mark : 30},
+			{name : "Varad" , roll : 3 , add:"Ambegoan" , contact : 9404695703 , mark : 8},
+			{name : "Sumeet" , roll : 4 , add:"Warje" , contact : 9356605762,mark:25},
+			{name : "Anush" , roll : 5 , add:"Katraj" , contact : 9579348532,mark:12},
+		  ]
+		  return (
+			<div className='container'>
+				<div className='row'>
+			   {
+				  brand.map((e, index) => {
+					return <Example1 name={e.name} mark={e.mark} add={e.add} contact={e.contact} roll={e.roll} />;
+				  })
+				}</div>
+				</div>
+		  );
+		}
+
+
+		function Example1(prop){
+		return(
+			<>
+			   <div className="col-sm-3 compdesign">
+					<h1>Name :- {prop.name}</h1>
+					<h1>roll :- {prop.roll}</h1>
+					<h1>contact :- {prop.contact}</h1>
+					<h1>marks :- {prop.mark}</h1>
+					<h1>Remark :- {prop.mark <= 12? " Failed " : "Passed"}</h1>
+			   </div>
+			</>
+			)
+		}
