@@ -1,0 +1,196 @@
+-------------------------------------
+
+Express js
+
+npm i express
+
+	const express = require("express")  ---> to import modeule ie. express into express
+	
+	const app = express()    ----> to access the express module express() is top level function of express module
+	
+	server function   ----> get post patch put delete etc
+	
+	const server = http.createServer(app)   ----> server is created using app rather any function like node js
+	
+	app.get("<url> ex ../",(req,res)=>{})   --- to operate get method
+	
+	
+	
+-----------------------------------------------------
+
+			const express = require("express")
+			const http = require("http")
+			const app = express()
+
+			app.get("/",(req,res)=>{
+					res.send("hello")        
+			})
+
+
+			app.get("/about",(req,res)=>{
+					res.send("hello about page")        
+			})
+
+			const server = http.createServer(app)
+
+			server.listen(8001,()=>{
+					console.log("Xala chalue");
+					
+			})
+
+----------------------------------------------------------
+
+	
+		app.get("/about",(req,res)=>{
+				res.send("hello about page " + req.query.name)        
+		})
+		
+		----> req.query ===> provide object of data pass in query { name: 'varadd', id: '1' }
+		
+		app.listen(8001,()=>{
+        console.log("Xala chalue"); })   ----> we can also use app for listen rather like server in node  
+		
+		also not require create server in express like node js
+		
+------------------------------------------------------------
+
+  get request method()  ----> 
+  
+			app.get("/api/users",(req,res)=>{
+				return res.json(users)
+			})
+			
+		----------------------------------
+		
+		const express = require("express");
+		const cors = require("cors"); 
+		const users = require("./users.json");
+		const port = 8000;
+
+		const app = express();
+
+		app.use(cors());
+		app.use(express.json()); 
+		app.use(express.urlencoded({ extended: false }));
+
+		app.get("/api/users", (req, res) => {
+		  return res.json(users);
+		});
+
+		app.listen(port, () => {
+		  console.log(`Server running on http://localhost:${port}`);
+		});
+
+		---------------------------------------
+		for individual get request
+		
+		app.get("/api/users/:id", (req, res) => {
+		  let m;
+		  users.forEach((e)=>{
+			if(e.id == req.params.id){
+			  m=e;
+			}
+		  })
+		  return res.json(m);
+		});
+
+		
+-------------------------------------------------------------
+
+  post method () ---> 
+	
+		app.post("/api/users",(req,res)=>{
+			  const body = req.body;   // retrive req body
+			  users.push({...body,id:users.length+1})   // push data on json file object
+			  fs.writeFile("users.json",JSON.stringify(users),(err,res1)=>{  // write updated file on json file
+				return res.json({status : "success"})
+			  })
+			})
+			
+-------------------------------------------------------------
+
+	patch method () ---?>
+	
+		app.patch("/api/users/:id",(req,res)=>{
+			const id= req.params.id;
+			const body=req.body
+			const data4 = {...users[id-1],...req.body}
+			users[id-1]=data4
+			console.log(users);
+			fs.writeFile("users.json",JSON.stringify(users),(err,res1)=>{
+			  return res.json({status:"success"})
+			})
+		  })
+		  
+--------------------------------------------------------------
+
+	delete method()  ------->
+	
+		  app.delete("/api/users/:id",(req,res)=>{
+			const id = req.params.id
+			users.splice(id-1,1)
+			console.log(users);
+			
+			fs.writeFile("users.json",JSON.stringify(users),(err,res1)=>{
+			  return res.json({status:"success"})
+			})
+		  })
+		  
+		  
+----------------------------------------------------------------
+
+	Example of code in express --->
+
+			const express = require("express");
+			const Data = require("./Ashish.json")
+			const cors = require("cors");
+			const app = express();
+			const port = 3000;
+			const fs=require("fs")
+
+			app.use(cors())
+			app.use(express.json())
+			app.use(express.urlencoded({ extended: false }));
+			app.get("/api", (req, res) => {
+					try {
+					  return res.json(Data);
+					} catch (error) {
+					  res.status(500).send({ error: "Unable to fetch data" });
+					}
+				  }); 
+
+			app.post("/api",(req,res)=>{
+			  console.log("reqest ali");
+			  const body = req.body;
+			  Data.push(body)  
+			  fs.writeFile("Ashish.json",JSON.stringify(Data),(err,res1)=>{
+				  return res.json({status:"success"})
+			  })
+			  
+			})
+
+			app.patch("/api/:id",(req,res)=>{
+			  const id= req.params.id;
+			  const body=req.body
+			  const data4 = { ...Data[id-1], ...body };
+			  Data[id-1]=data4
+			  fs.writeFile("Ashish.json",JSON.stringify(Data),(err,res1)=>{
+				return res.json({status:"success"})
+			  })   
+			})
+
+			app.delete("/api/:id",(req,res)=>{
+			  const id= req.params.id;
+			  Data.splice(id-1,1);
+			  console.log(Data);
+			  fs.writeFile("Ashish.json",JSON.stringify(Data),(err,res1)=>{
+				return res.json({status:"success"})
+			  })     
+			})
+
+			app.listen(port,()=>{
+					console.log("Chalu "); 
+			})
+
+----------------------------------------------------
+			JAI BABA Kii
