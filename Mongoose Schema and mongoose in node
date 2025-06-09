@@ -1,0 +1,71 @@
+mongoose is different javascript libaray to facilate
+ the interconnection of front end and backend i.e mongodb
+
+to connect mongodb -->
+	
+mongoose.connect("mongodb+srv://evolve:evolve@evolve.o2hgi.mongodb.net/?retryWrites=true&w=majority&appName=evolve")
+  .then(() => console.log("Database is connected"))
+  .catch((error) => console.log("Error occurred:", error));
+
+mongoose use schemas to make process more structured
+
+ex .. 
+		const mongoose = require("mongoose");
+
+		const userSchema = new mongoose.Schema({
+			username: String,
+			email: String,
+			accesstype: String,
+			tpoid: String,
+			classtid: String,
+			password: String
+		});
+
+		const userdata = mongoose.model("userdata", userSchema);
+
+		module.exports = userdata;
+		
+to import schemas ---> 
+	const userdata = require("./Models/userdata.js");
+
+post method using moongoose ->
+	
+		app.post("/api/register",async (req,res)=>{
+    try{
+        const {username,password,email,classid,tpoid,accesstype} = req.body;
+        const exist = await userdata.findOne({email})
+        if(exist){
+            res.json({status:"404",message : "Already exists"})
+        }
+        const newuser = new userdata({  // make object on schema
+        username,
+        password,
+        email,
+        classid,
+        tpoid,
+        accesstype
+    }) 
+    await newuser.save();  //save that schema
+    res.json({ status: 200, message: "User registered successfully", usedId : userdata._id });
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ status: 500, message: "Internal Server Error" });
+    }
+	})
+	
+	
+mongoose get method -->
+	
+		app.get("/api/login", async (req, res) => {
+		try {
+			const response = await userdata.find();
+			if (response.length === 0) {
+				return res.status(404).json({ status: "404", message: "No users found" });
+			}
+        res.status(200).json(response);
+		} catch (err) {
+			console.log("Error occurred in /api/login route:", err);
+			res.status(500).json({ status: "500", message: "Internal Server Error" });
+		}
+});
