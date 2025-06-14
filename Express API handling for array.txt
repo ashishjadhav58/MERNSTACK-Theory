@@ -1,0 +1,39 @@
+Express API handling for array
+// import express module
+const express = require("express");
+// import cors module
+const cors = require("cors");
+//this replaces the nodeJs http create server logic
+const app = express()
+
+let arr = [{name:"Sumeet",rollno:"44"}]
+
+app.use(cors()); //Purpose: Enables CORS (Cross-Origin Resource Sharing
+app.use(express.json());  //  Purpose: Parses incoming JSON request bodies Converts JSON data in req.body into a usable JS object
+app.use(express.urlencoded({ extended: false })); // Purpose: Parses URL-encoded form data (like HTML <form> submissions) extended: false means only simple key-value pairs (no nested objects)
+
+app.get("/",(req,res)=>{
+    // res.json("Hello form get");
+    res.json(arr)
+})
+
+app.post("/ashish",(req,res)=>{
+    console.log(req.body);
+    // res.json("Hello from post");
+    arr.push(req.body); 
+    res.json("data added successfully")
+})
+
+app.delete("/deldata/:name",(req,res)=>{ //this function demonstrates the fetch from url values/variables to delete the value in database.
+    const para = req.params.name; // this is the url value request 
+    // here we are deleting the data value from array 
+    console.log(para);
+    arr = arr.filter(user => user.name.toLocaleLowerCase() !== para.toLocaleLowerCase());
+    console.log(arr);
+    res.json(`Zala delete bhau ${para}`)
+})
+
+// call the server and starts it
+app.listen(6969,()=>{
+    console.log("Server is Started");
+})

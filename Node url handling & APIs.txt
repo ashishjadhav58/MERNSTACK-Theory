@@ -1,0 +1,75 @@
+
+// import the http module 
+const { log } = require("console");
+const http = require("http");
+// import the url module
+const url = require("url");
+
+// here we created a server which will interacting with API
+const sumeetServer = http.createServer((req,res)=>{
+    const path = req.url;
+    // res.end("Hello sumeetServer");
+    console.log(url.parse(path,true)); //convert url into object
+    console.log(url.parse(path,true).query.name); //access that object and get querys 
+    console.log(path); 
+    
+    switch(path){
+        case "/":
+            res.end("My name is Sumeet");
+            break;
+        case "/ashish":
+            res.end("My name is Ashish");
+            break;
+        default : res.end("Varad error");
+    }
+})
+
+// to call the server we require the listen()
+sumeetServer.listen(8000,()=>{
+    console.log("Server started.");
+})
+
+// req.url :- gets the request path eg: /about
+// res.end : returns response from server.
+// console.log(url.parse(path,true)); //convert url into object 
+
+----------------------------------------------------------------------
+
+// import the http module 
+const { log } = require("console");
+const http = require("http");
+// import the url module
+const url = require("url");
+
+// here we created a server which will interacting with API
+const sumeetServer = http.createServer((req,res)=>{
+    const path = req.url;
+    // res.end("Hello sumeetServer");
+    console.log(url.parse(path,true)); //convert url into object
+    console.log(url.parse(path,true).query.name); //access that object and get querys 
+    console.log(path); 
+    
+    switch(path){
+        case "/":
+            res.end("My name is "+url.parse(path,true).query.name);
+            break;
+        case "/ashish":
+            res.end("My name is Ashish");
+            break;
+        default : res.end("Varad error " + url.parse(path,true).query.name);
+    }
+})
+
+// to call the server we require the listen()
+sumeetServer.listen(8000,()=>{
+    console.log("Server started.");
+})
+
+// req.url :- gets the request path eg: /about
+// res.end : returns response from server.
+// console.log(url.parse(path,true)); //convert url into object 
+
+
+
+
+

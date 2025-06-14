@@ -1,0 +1,53 @@
+mongoose method for get post patch
+
+//app.use(cors({  origin: "http://localhost:3000", // Allow only your frontend 
+// methods: ["GET", "POST", "PATCH", "DELETE"], 
+// credentials: true}));
+
+const express = require("express");
+const cors = require("cors");
+// module to work with mongoDB
+const mongoose = require("mongoose"); 
+const e = require("express");
+const user = require("./models/user");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+mongoose.connect("mongodb+srv://sumeetdarje999:root@cluster0.0f1uk0l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(() => {
+    console.log("Database is connected successfully");
+  })
+  .catch((e) => {
+    console.log("Database connection error:", e);
+  });
+
+  app.get("/api/get",async (req,res)=>{
+    const allData = await user.find()
+    res.json(allData);
+  })
+
+  app.post("/api/post",async (req,res)=>{
+    const {name, rollno, age} = req.body //here we requested the data body
+    const newData = new user({name, rollno, age}) //created a new object with the requested data body
+    await newData.save(); //here we saved in mongoDB database
+    res.json("data added successfully");
+  })
+
+  app.delete("/api/dataDelete/:rollno",async (req,res)=>{
+    const para = req.params.rollno; // here we have get the rollno from url 
+    await user.deleteOne({rollno:para}) // here we have deleted the required data from database
+    res.json("Data deleted successfully");
+  })
+
+  app.patch("/api/update",async(req,res)=>{
+    const {name, oldrollno, age, rollno} = req.body; //here we requested the data body
+    const updatedData = await user.findOneAndUpdate({rollno:oldrollno},{$set:{name, age, rollno}});
+    res.json("Data Updated successfully");
+  })
+
+app.listen(6969,()=>{
+    console.log("Server Started on 6969");
+})
