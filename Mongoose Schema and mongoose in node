@@ -3,7 +3,7 @@ mongoose is different javascript libaray to facilate
 
 to connect mongodb -->
 	
-mongoose.connect("mongodb+srv://evolve:evolve@evolve.o2hgi.mongodb.net/?retryWrites=true&w=majority&appName=evolve")
+mongoose.connect("")
   .then(() => console.log("Database is connected"))
   .catch((error) => console.log("Error occurred:", error));
 
